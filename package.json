@@ -1,0 +1,17 @@
+{
+  "name": "zabo-api",
+  "version": "1.0.0",
+  "description": "SPARCS Zabo project - RESTful API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SPARCS Zabo team",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.1",
+    "path": "^0.12.7"
+  }
+}
