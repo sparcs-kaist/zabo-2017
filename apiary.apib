@@ -1,0 +1,237 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Zabo Project
+
+Zabo는 교내 구성원들이 온라인에서 손쉽게 자보를 홍보하고, 또 모아볼 수 있도록 도와주는 서비스이다. 
+
+# Group Zabo
+
+API에서 zabo 모델과 관련된 resource에 대한 설명.
+
+## Zabo [/api/zabos/{zabo_id}]
+
+zabo object에 대한 기본적인 CRUD를 제공한다.
+
+<!--+ Parameters-->
+<!--    + zabo_id - zabo object의 고유 id.-->
++ Parameters
+    + zabo_id - Id of a post.
+
+### View a Zabo detail [GET]
+
+URL에 포함된 id에 해당하는 zabo의 detail을 가져온다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Edit a Zabo [PUT]
+
+기존 zabo를 수정한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Delete a Zabo [DELETE]
+
+해당 zabo를 삭제한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+## Zabos Collection [/api/zabos]
+
+zabos collection에 대한 기본적인 CRUD를 제공한다.
+
+### List All Zabos [GET]
+
+query가 empty string이면 모든 zabo의 list를 가져온다. query가 있으면 query에 해당하는 zabo list를 가져온다.
+
++ Request (application/json)
+
+            {
+                "query": "SPARCS"
+            }
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Create a New Zabo [POST]
+
+새로운 zabo를 생성한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Delete All Zabos [DELETE]
+
+모든 zabo를 삭제한다. **(Admin ONLY)**
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+## Register/Unregister Main Zabos [/api/zabos/mains/{zabo_id}]
+
+### Register a New Main Zabo [POST]
+
+메인 페이지의 상단에 띄워질 자보로 등록한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Unregister a Main Zabo [DELETE]
+
+메인 페이지의 상단에 띄워진 자보를 등록 해제한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+## Main Zabos [/api/zabos/mains]
+
+### List All Main Zabos [GET]
+
+메인 페이지의 상단에 띄워질 3개의 zabo list를 가져온다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Reset All Main Zabos [DELETE]
+
+메인 페이지의 상단에 띄워질 3개의 zabo를 초기화한다. **(Admin Only)**
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+            
+## Zabos with Condition [/api/zabos/{condition}]
+
+특정 condition을 만족하는 자보를 가져올 때 필요한 API이다. 카테고리별 자보, 인기 자보, 듀 임박 자보, 특정 단체의 자보를 받아올 수 있다.
+
++ Parameter
+    + condition - 받아오고자 하는 zabo list의 condition (카테고리, 인기, 듀 임박, 특정 단체)
+
+### List All Zabos in the Given Condition [GET]
+
+query가 empty string이면 parameter로 주어진 condition에 해당하는 zabo list를 가져온다.
+query가 있으면 주어진 condition 내에서 query에 해당하는 zabo list를 가져온다.
+
++ Request (application/json)
+
+            {
+                "query": "SPARCS"
+            }
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+            
+## Report Zabo [/api/zabos/:zabo_id/report]
+
+자보를 신고할 때 필요한 API이다.
+
+### Report a Zabo [POST]
+
+zabo_id에 해당하는 자보를 신고한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+# Group Favorite
+
+즐겨찾기와 관련된 API 설명.
+
+## User's Favorite Zabo [/api/users/:user_id/likes/zabos]
+
+유저가 관심있는 자보를 받아오는 API이다.
+
+### List All Favorite Zabos of a User [GET]
+
+유저가 즐겨찾기한 자보 / 즐겨찾기한 단체의 자보를 모두 받아온다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+## Favorites to Zabo [/api/users/:user_id/likes/zabos/:zabo_id]
+
+특정 자보 즐겨찾기와 관련된 API이다.
+
+### Register a Zabo as a Favorite Zabo [POST]
+
+zabo_id에 해당하는 자보를 user_id를 가진 유저 즐겨찾는 자보로 등록한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Unregister a Zabo as a Favorite Zabo [DELETE]
+
+zabo_id에 해당하는 자보를 user_id를 가진 유저 즐겨찾는 자보에서 등록 해제한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+## Favorites to Group [/api/users/:user_id/likes/:group]
+
+특정 단체 즐겨찾기와 관련된 API이다.
+
+### Register a Group as a Favorite Group [POST]
+
+group에 해당하는 단체를 user_id를 가진 유저의 즐겨찾는 단체로 등록한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
+
+### Unregister a Group as a Favorite Group [DELETE]
+
+group에 해당하는 단체를 user_id를 가진 유저의 즐겨찾는 단체에서 등록 해제한다.
+
++ Response 200 (application/json)
+
+            {
+                
+            }
