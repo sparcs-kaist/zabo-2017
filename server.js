@@ -23,6 +23,10 @@ app.engine('html', require('ejs').renderFile);
 
 require('./routes')(app);
 
+app.get('/all', function (req, res) {
+	res.render('all.html');
+});
+
 app.listen(port, () => {
     console.log('Server running at http://127.0.0.1:' + port);
 });

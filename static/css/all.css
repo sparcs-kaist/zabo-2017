@@ -1,0 +1,33 @@
+
+body {
+	margin: 10 50px 0 50px;
+}
+
+.column {
+	text-align: center;
+}
+
+.inline {
+	display: inline;
+}
+
+.div-tag {
+	margin-right: 10px;
+	display: inline-flex;
+}
+
+.div-poster {
+	margin: 10px 0 10px 0;
+	width: inherit;
+	height: 300px;
+}
+
+.img-poster {
+	max-height: 300px;
+	overflow-y: hidden;
+	width: auto;
+}
+
+#div-posters {
+	/*margin: 0 100px 0 100px;*/
+}

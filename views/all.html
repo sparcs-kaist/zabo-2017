@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title> ZABO </title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+		<link rel="stylesheet" href="static/css/all.css">
+		<script src="https://use.fontawesome.com/17bb29d6db.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="static/javascript/all.js"></script>
+	</head>
+
+	<body>
+		<div>
+			<div>
+				<button id="btn-show" class="button is-primary">
+					Select Filters&nbsp;<span class="icon"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+				</button>
+				<div id="div-list-filters" class="inline"></div>
+			</div>
+
+			<div id="div-filters">
+				<div id="div-select-filters">
+					<div><input type="checkbox" name="category" value="Apple" /> Apple</div>
+					<div><input type="checkbox" name="category" value="Banana" /> Banana</div>
+					<div><input type="checkbox" name="category" value="Cherry" /> Cherry</div>
+				</div>
+
+				<button id="btn-filter" class="button is-success">Apply</button>
+			</div>
+		</div>
+
+		<div id="div-posters" class="columns">
+			<div id="column-1" class="column"></div>
+			<div id="column-2" class="column"></div>
+			<div id="column-3" class="column"></div>
+		</div>
+
+	</body>
+</html>
