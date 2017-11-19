@@ -10,6 +10,7 @@ const zaboSchema = new mongoose.Schema({
     eventStart: Date,
     eventEnd: Date,
     description: String,
+    report: [String],
     toAra: Boolean,
     isMain: Boolean,
 });
