@@ -1,19 +1,7 @@
-const userSchema = require('./../models/user.js');
-const zaboSchema = require('./../models/zabo.js');
-const logSchema = require('./../models/log.js');
+const userSchema = require('./../models/users.js');
 
-module.exports = (app) => {
-    /************/
-    /* Web part */
-    /************/
-    app.get('/main', (req, res) => {
-       res.render('main.html');
-    });
+module.exports = function(app) {
 
-
-    /************/
-    /* API part */
-    /************/
 	//create new
 	app.post ('/api/users', function(req, res) {
 		userSchema.find ({ id: req.body.id }, function(err, users) {
@@ -70,4 +58,5 @@ module.exports = (app) => {
 		});
 		res.end();
 	});
+
 }
