@@ -1,0 +1,25 @@
+
+.img-main {
+	height: 600px;
+	display : inline-block;
+	margin: 5px;
+}
+
+
+#main-posters {
+	white-space: nowrap;
+}
+
+#posterbox{
+	height: 300px;
+	overflow-x : auto;
+	white-space: nowrap;
+	/*display : inline-block;*/
+
+}
+
+.img-poster{
+	height: 300px;
+	display : inline;
+	margin : 5px;
+}
