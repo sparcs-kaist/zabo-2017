@@ -44,7 +44,7 @@ module.exports = (app) => {
 			res.json(user);
 		});
 		res.end();
-	})
+	});
 
 	// update
 	app.put('/api/users/:id', function(req, res) {
