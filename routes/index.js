@@ -55,7 +55,7 @@ module.exports = (app) => {
 			}
 			if (!result.n) return.status(404).json({error: 'user not found'});
 			res.json({message: 'user updated'});
-		})
+		});
 		res.end();
 	});
 
