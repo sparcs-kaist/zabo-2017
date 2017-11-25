@@ -48,7 +48,7 @@ module.exports = (app) => {
 
 	// update
 	app.put('/api/users/:id', function(req, res) {
-		userSchema.update({ id: req.params.id }, funtion(err, result) {
+		userSchema.update({ id: req.params.id }, function(err, result) {
 			if (err) {
 				console.log(err);
 				return res.status(500).end('database error');
