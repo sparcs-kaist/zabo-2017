@@ -15,9 +15,9 @@ module.exports = (app) => {
     /* API part */
     /************/
 	//create new
-	app.post ('/api/users', function(req, res) {
-		userSchema.find ({ id: req.body.id }, function(err, users) {
-			if (users.length>0) return res.json({error:'Duplicated ID, choose another one'});
+	app.post('/api/users', function(req, res) {
+		userSchema.find({ id: req.body.id }, function(err, users) {
+			if (users.length > 0) return res.json({ success: false });
 
 			var user = new userSchema();
 			user.id = req.body.id;
@@ -28,22 +28,20 @@ module.exports = (app) => {
 			user.save(function(err) {
 				if (err) {
 					console.log(err);
-					return res.status(500).json({error:'Database error'});
+					return res.status(500);
 				}
-				res.json({message: 'save success'});
+				res.json({ success: true });
 			});
 		});
-		res.end();
 	});
 
 	// get
 	app.get('/api/users/:id', function(req, res) {
-		userSchema.findOne( {id: req.params.id}, function(err, user) {
-			if(err) return res.status(500).send({error: 'Database error'});
-			if (!user) return res.status(404).json({error: 'user not found'});
+		userSchema.findOne({ id: req.params.id }, function(err, user) {
+			if(err) return res.status(500);
+			if (!user) return res.status(404);
 			res.json(user);
 		});
-		res.end();
 	});
 
 	// update
@@ -51,23 +49,21 @@ module.exports = (app) => {
 		userSchema.update({ id: req.params.id }, function(err, result) {
 			if (err) {
 				console.log(err);
-				return res.status(500).end('database error');
+				return res.status(500);
 			}
-			if (!result.n) return res.status(404).json({error: 'user not found'});
-			res.json({message: 'user updated'});
+			if (!result.n) return res.status(404);
+			res.json({ success: true });
 		});
-		res.end();
 	});
 
 	// delete
 	app.delete('/api/users/:id', function(req, res) {
-		userSchema.remove({ id: req.params.id }, function(err, result){
+		userSchema.remove({ id: req.params.id }, function(err){
 			if (err) {
 				console.log(err);
-				return res.status(500).json({error:'database error'});
+				return res.status(500);
 			}
-			res.json({message: 'delete success!'});
+			res.json({ success: true });
 		});
-		res.end();
 	});
 }
