@@ -17,7 +17,7 @@ module.exports = (app) => {
 	//create new
 	app.post('/api/users', function(req, res) {
 		userSchema.find({ id: req.body.id }, function(err, users) {
-			if (users.length > 0) return res.json({ success: false });
+			if (users.length > 0) return res.status(400);
 
 			var user = new userSchema();
 			user.id = req.body.id;
@@ -58,7 +58,7 @@ module.exports = (app) => {
 
 	// delete
 	app.delete('/api/users/:id', function(req, res) {
-		userSchema.remove({ id: req.params.id }, function(err){
+		userSchema.remove({ id: req.params.id }, function(err) {
 			if (err) {
 				console.log(err);
 				return res.status(500);
@@ -67,82 +67,74 @@ module.exports = (app) => {
 		});
 	});
 
-    app.get('/api/zabos/mains', function(req, res){
-        zaboSchema.find(function(err, zabos){
+    app.get('/api/zabos/mains', function(req, res) {
+        zaboSchema.find(function(err, zabos) {
             if(err) return res.status(500).json({error: err});
             for(zabo in zabos){
                 if(zabo.isMain) res.json(zabo);
             }
         })
-        res.end();
     });
 
-    app.delete('/api/zabos/mains', function(req, res){
-        zaboSchema.find(function(err, zabos){
+    app.delete('/api/zabos/mains', function(req, res) {
+        /* TODO: admin ONLY */
+        zaboSchema.find(function(err, zabos) {
             if(err) return res.status(500).json({error: err});
             for(zabo in zabos){
                 if(zabo.isMain) zabo.isMain = false;
             }
 
-            zaboSchema.save(function(err){
+            zaboSchema.save(function(err) {
                 if(err) res.status(500).json({error: 'failed to update'});
                 res.json({message: 'zabo main updated'});
             });
-        })
-        res.end();
+        });
     });
 
-    app.post('/api/zabos/mains', function(req, res){
-        zaboSchema.findOne({id: req.body.zabo_id}, function(err, zabo){
-            if(err) return res.status(500).send({error: 'Database error'});
-            if(!zabo) return res.status(404).json({error: 'zabo not found'});
+    app.post('/api/zabos/mains/:zabo_id', function(req, res) {
+        zaboSchema.findOne({id: req.params.zabo_id}, function(err, zabo) {
+            if(err) return res.status(500);
+            if(!zabo) return res.status(404);
             zabo.isMain = true;
-
-            zaboSchema.save(function(err){
-                if(err) res.status(500).json({error: 'failed to update'});
-                res.json({message: 'zabo main updated'});
+            zaboSchema.save(function(err) {
+                if(err) res.status(500);
+                res.json({ success: true });
             });
-        })
-        res.end();
+        });
     });
 
-    app.delete('/api/zabos/mains/:zabo_id', function(req, res){
-        zaboSchema.findOne({id: req.params.zabo_id}, function(err, zabo){
-            if(err) return res.status(500).send({error: 'Database error'});
-            if(!zabo) return res.status(404).json({error: 'zabo not found'});
+    app.delete('/api/zabos/mains/:zabo_id', function(req, res) {
+        zaboSchema.findOne({id: req.params.zabo_id}, function(err, zabo) {
+            if(err) return res.status(500);
+            if(!zabo) return res.status(404);
             zabo.isMain = false;
-
-            zaboSchema.save(function(err){
-                if(err) res.status(500).json({error: 'failed to update'});
-                res.json({message: 'zabo main updated'});
+            zaboSchema.save(function(err) {
+                if(err) res.status(500);
+                res.json({ success: true });
             });
-        })
-        res.end();
+        });
     });
 
-    app.get('/api/zabos/:zabo_id', function(req,res){
-        zaboSchema.findOne({id: req.params.zabo_id}, function(err, zabo){
+    app.get('/api/zabos/:zabo_id', function(req,res) {
+        zaboSchema.findOne({id: req.params.zabo_id}, function(err, zabo) {
             if(err) return res.status(500).send({error: 'Database error'});
             if(!zabo) return res.status(404).json({error: 'zabo not found'});
             res.json(zabo);
         });
-        res.end();
     });
 
-    app.put('/api/zabos/:zabo_id', function(req, res){
-        zaboSchema.update({ id: req.params.zabo_id }, { $set: req.body }, function(err, output){
-            if(err) res.status(500).json({ error: 'Database error' });
-            if(!output.n) return res.status(404).json({ error: 'zabo not found' });
-            res.json( { message: 'zabo updated' } );
-        })
-        res.end();
+    app.put('/api/zabos/:zabo_id', function(req, res) {
+        zaboSchema.update({ id: req.params.zabo_id }, { $set: req.body }, function(err, output) {
+            if(err) res.status(500);
+            if(!output.n) return res.status(404);
+            res.json({ success: true });
+        });
     });
 
-    app.delete('/api/zabos/:zabo_id', function(req, res){
-        zaboSchema.remove({ id: req.params.zabo_id }, function(err, output){
+    app.delete('/api/zabos/:zabo_id', function(req, res) {
+        zaboSchema.remove({ id: req.params.zabo_id }, function(err) {
             if(err) return res.status(500).json({ error: "Database error" });
-
-            res.status(204).end();
+            res.status(204);
         })
     });
 }
