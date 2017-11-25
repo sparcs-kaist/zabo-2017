@@ -11,7 +11,19 @@ module.exports = (app) => {
     });
 
 
+    app.get('/zabos/zabo_id', function(req, res) {
+    	zabo.find(function(err, zabos) {
+    		if(err) {
+    			console.log(err);
+    			res.status(500).end('Database error');
+    		}
+    		res.json(zabos);
+    		res.end('success!');
+    	});
+    });
+
     /************/
     /* API part */
     /************/
+
 }
