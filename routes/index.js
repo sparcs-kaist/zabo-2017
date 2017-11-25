@@ -53,7 +53,7 @@ module.exports = (app) => {
 				console.log(err);
 				return res.status(500).end('database error');
 			}
-			if (!result.n) return.status(404).json({error: 'user not found'});
+			if (!result.n) return res.status(404).json({error: 'user not found'});
 			res.json({message: 'user updated'});
 		});
 		res.end();
