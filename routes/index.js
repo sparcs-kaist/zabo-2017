@@ -36,6 +36,10 @@ module.exports = (app) => {
 	});
 
 	// get
+    app.get('/api/test', (req, res) => {
+       res.render('api_test.html');
+    });
+
 	app.get('/api/users/:id', function(req, res) {
 		userSchema.findOne({ id: req.params.id }, function(err, user) {
 			if(err) return res.status(500);
