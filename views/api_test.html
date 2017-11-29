@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Zabo API test</title>
+        <link rel="stylesheet" href="/static/css/bulma.css">
+        <script src="/static/javascript/jquery.js" type="text/javascript"></script>
+        <script src="/static/javascript/axios.js" type="text/javascript"></script>
+        <script src="/static/javascript/api_test.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h1>Zabo API test page!</h1>
+        <div id="request">
+            <p>HTTP Request</p>
+            <label for="req_url_input">URL:</label>
+            <input id="req_url_input">
+            <br>
+            <label for="req_method_input">Method:</label>
+            <input id="req_method_input" >
+            <br>
+            <label for="req_body_input">Body:</label>
+            <br>
+            <textarea id="req_body_input" rows="20" cols="100"></textarea>
+            <br>
+            <button id="send_req_btn" class="button">Send request</button>
+        </div>
+        <hr>
+        <div id="response">
+            <p>HTTP Response</p>
+            <span>Status:</span>
+            <span id="res_status"></span>
+            <br>
+            <span>Body:</span>
+            <br>
+            <pre id="res_body"></pre>
+        </div>
+    </body>
+</html>
