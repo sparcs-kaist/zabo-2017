@@ -5,6 +5,89 @@ HOST: http://polls.apiblueprint.org/
 
 Zabo는 교내 구성원들이 온라인에서 손쉽게 자보를 홍보하고, 또 모아볼 수 있도록 도와주는 서비스이다. 
 
+# Group User
+
+API에서 user 모델과 관련된 resource에 대한 설명.
+
+## User [/api/users/{user_id}]
+
+user object에 대한 기본적인 CRUD를 제공한다.
+
++ Pamameters
+    + user_id - Id of a user.
+
+### View a User Detail [GET]
+
+URL에 포함된 id에 해당하는 user의 detail을 가져온다.
+
++ Response 200 (application/json)
+
+    성공적으로 user_id에 해당하는 유저 정보를 받아올 경우
+
+    + Body
+    
+            {
+                success: true
+            }
+
+### Edit a User [PUT]
+
+기존 user를 수정한다.
+
++ Response 200 (application/json)
+
+    성공적으로 user_id에 해당하는 유저 정보를 수정할 경우
+    
+    + Body
+    
+            {
+                success: true
+            }
+
+### Delete a User [DELETE]
+
+해당 user를 삭제한다.
+
++ Response 200 (application/json)
+
+    성공적으로 user)id에 해당하는 유저 정보를 삭제할 경우
+    
+    + Body
+    
+            {
+                success: true
+            }
+
+## Users Collection [/api/users/]
+
+user collection에 대한 기본적인 CRUD를 제공한다.
+
+### Create a New User [GET]
+
+URL에 포함된 id에 해당하는 user의 detail을 가져온다.
+
++ Request
+
+            {
+                id: [SPARCS SSO ID]
+            }
+
++ Response 200 (application/json)
+
+    성공적으로 user_id에 해당하는 유저 정보를 받아올 경우
+
+    + Body
+    
+            {
+                success: true
+            }
+            
++ Response 400 (application/json)
+    
+    이미 해당 id로 생성된 user가 있을 경우 (duplicated id)
+    
+    + Body
+
 # Group Zabo
 
 API에서 zabo 모델과 관련된 resource에 대한 설명.
@@ -13,19 +96,33 @@ API에서 zabo 모델과 관련된 resource에 대한 설명.
 
 zabo object에 대한 기본적인 CRUD를 제공한다.
 
-<!--+ Parameters-->
-<!--    + zabo_id - zabo object의 고유 id.-->
 + Parameters
-    + zabo_id - Id of a post.
+    + zabo_id - Id of a zabo.
 
-### View a Zabo detail [GET]
+### View a Zabo Detail [GET]
 
 URL에 포함된 id에 해당하는 zabo의 detail을 가져온다.
 
 + Response 200 (application/json)
 
+    성공적으로 zabo_id에 해당하는 zabo의 정보를 가져온 경우
+    
+    + Body
+
             {
-                
+                id(String): 고유 id (key for zabo)
+                img(String): 게시할 자보 이미지 이름
+                event(String): 행사 이름
+                writer(String): 게시자 이름 (key for user)
+                category(String?): 카테고리
+                applyStart(Date): 지원 시작일
+                applyEnd(Date): 지원 마감일
+                eventStart(Date): 행사 시작일
+                eventEnd(Date): 행사 마감일 (게시 마감일)
+                description(String): 간략한 설명
+                report([String]): 신고한 user 리스트
+                toAra(Boolean): 아라에 자동으로 노출시켜줄지의 여부
+                isMain(Boolean): 메인 페이지에 띄워지는 자보인지의 여부
             }
 
 ### Edit a Zabo [PUT]
@@ -34,19 +131,23 @@ URL에 포함된 id에 해당하는 zabo의 detail을 가져온다.
 
 + Response 200 (application/json)
 
+    성공적으로 zabo_id에 해당하는 zabo를 수정한 경우
+    
+    + Body
+
             {
-                
+                success: true
             }
 
 ### Delete a Zabo [DELETE]
 
 해당 zabo를 삭제한다.
 
-+ Response 200 (application/json)
++ Response 204 (application/json)
 
-            {
-                
-            }
+    성공적으로 zabo_id에 해당하는 zabo를 삭제한 경우
+    
+    + Body
 
 ## Zabos Collection [/api/zabos]
 
@@ -96,8 +197,12 @@ query가 empty string이면 모든 zabo의 list를 가져온다. query가 있으
 
 + Response 200 (application/json)
 
+    성공적으로 zabo_id에 해당하는 zabo를 main zabo로 등록할 경우
+    
+    + Body
+
             {
-                
+                success: true
             }
 
 ### Unregister a Main Zabo [DELETE]
@@ -106,8 +211,12 @@ query가 empty string이면 모든 zabo의 list를 가져온다. query가 있으
 
 + Response 200 (application/json)
 
+    성공적으로 zabo_id에 해당하는 zabo를 main zabo로 등록 해제할 경우
+    
+    + Body
+
             {
-                
+                success: true
             }
 
 ## Main Zabos [/api/zabos/mains]
@@ -118,9 +227,23 @@ query가 empty string이면 모든 zabo의 list를 가져온다. query가 있으
 
 + Response 200 (application/json)
 
-            {
-                
-            }
+            [
+                {
+                    id: ...,
+                    ...,
+                    isMain: true
+                },
+                {
+                    id: ...,
+                    ...,
+                    isMain: true
+                },
+                {
+                    id: ...,
+                    ...,
+                    isMain: true
+                }
+            ]
 
 ### Reset All Main Zabos [DELETE]
 
@@ -129,7 +252,7 @@ query가 empty string이면 모든 zabo의 list를 가져온다. query가 있으
 + Response 200 (application/json)
 
             {
-                
+                success: true
             }
             
 ## Zabos with Condition [/api/zabos/{condition}]
