@@ -141,4 +141,23 @@ module.exports = (app) => {
             res.status(204);
         })
     });
+
+    app.get('/api/zabos', function(req, res) {
+        zaboSchema.find(function(err, zabos) {
+            if (err) return res.status(500).json({error: "Database error" });
+            res.json(zabo);
+        })
+    });
+
+    app.post('/api/zabos', function(req, res) {
+        
+    });
+
+    app.delete('/api/zabos', function(req, res) {
+        zaboSchema.remove({}, function(err) {
+            if (err) return res.status(500).json({ error: "Database error" });
+            res.status(200);
+        })
+    });
+
 }
