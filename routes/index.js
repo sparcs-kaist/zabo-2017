@@ -161,12 +161,32 @@ module.exports = (app) => {
 
     });
 
+    function uniqueNumber() {
+        var date = Date.now();
+        
+        if (date <= uniqueNumber.previous) {
+            date = ++uniqueNumber.previous;
+        } else {
+            uniqueNumber.previous = date;
+        }
+        return date;
+    }
+
+    uniqueNumber.previous = 0;
+
+    function ID() {
+        return uniqueNumber();
+    };
+
+
     app.post('/api/zabos', function(req, res) {
         
         var zabo = new zaboSchema();
         var reporters = []; // list of reporters
+
+        var uniq_id = ID();
         
-        zabo.id = req.body.id;
+        zabo.id = uniq_id;
         zabo.img = req.body.img;
         zabo.eventName = req.body.eventName;
         zabo.writer = req.body.writer;
