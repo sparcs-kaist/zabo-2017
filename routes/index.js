@@ -143,14 +143,29 @@ module.exports = (app) => {
     });
 
     app.get('/api/zabos', function(req, res) {
-        zaboSchema.find(function(err, zabos) {
-            if (err) return res.status(500).json({error: "Database error" });
-            res.json({});
-        })
+        var query = req.body.query;
+        
+        if (query) {
+            zaboSchema.find({ "eventName" : { $regex: /query/, $options: 'i' } }, 
+                function(err, zabos) {
+                    if (err) return res.status(500).json({error: "Database error" });
+                    res.status(200);
+                })
+        }
+        else {
+            zaboSchema.find(function(err, zabos) {
+                if (err) return res.status(500).json({error: "Database error" });
+                res.status(200);
+            })
+        }
+
     });
 
     app.post('/api/zabos', function(req, res) {
+        
         var zabo = new zaboSchema();
+        var reporters = []; // list of reporters
+        
         zabo.id = req.body.id;
         zabo.img = req.body.img;
         zabo.eventName = req.body.eventName;
@@ -161,9 +176,9 @@ module.exports = (app) => {
         zabo.eventStart = req.body.eventStart;
         zabo.eventEnd = req.body.eventEnd;
         zabo.description = req.body.description;
-        zabo.report = req.body.report;
+        zabo.report = reporters;
         zabo.toAra = req.body.toAra;
-        zabo.isMain = req.body.isMain;
+        zabo.isMain = false;
 
         zabo.save(function(err) {
             if (err){
