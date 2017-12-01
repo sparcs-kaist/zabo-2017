@@ -145,12 +145,34 @@ module.exports = (app) => {
     app.get('/api/zabos', function(req, res) {
         zaboSchema.find(function(err, zabos) {
             if (err) return res.status(500).json({error: "Database error" });
-            res.json(zabo);
+            res.json({});
         })
     });
 
     app.post('/api/zabos', function(req, res) {
-        
+        var zabo = new zaboSchema();
+        zabo.id = req.body.id;
+        zabo.img = req.body.img;
+        zabo.eventName = req.body.eventName;
+        zabo.writer = req.body.writer;
+        zabo.category = req.body.category;
+        zabo.applyStart = req.body.applyStart;
+        zabo.applyEnd = req.body.applyEnd;
+        zabo.eventStart = req.body.eventStart;
+        zabo.eventEnd = req.body.eventEnd;
+        zabo.description = req.body.description;
+        zabo.report = req.body.report;
+        zabo.toAra = req.body.toAra;
+        zabo.isMain = req.body.isMain;
+
+        zabo.save(function(err) {
+            if (err){
+                console.log(err);
+                return res.status(500);
+            }
+            res.json({});
+        })
+
     });
 
     app.delete('/api/zabos', function(req, res) {
