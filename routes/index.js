@@ -7,9 +7,16 @@ module.exports = (app) => {
     /* Web part */
     /************/
     app.get('/main', (req, res) => {
-       res.render('main.html');
+        res.render('main_page.html');
     });
 
+    app.get('/all', (req, res) => {
+        res.render('all.html');
+    });
+
+    app.get('/upload', (req, res) => {
+        res.render('upload.html');
+    });
 
     /************/
     /* API part */
