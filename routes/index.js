@@ -148,4 +148,80 @@ module.exports = (app) => {
             res.status(204);
         })
     });
+
+    app.get('/api/zabos', function(req, res) {
+        var query = req.body.query;
+        
+        if (query) {
+            zaboSchema.find({ "eventName" : { $regex: /query/, $options: 'i' } }, 
+                function(err, zabos) {
+                    if (err) return res.status(500).json({error: "Database error" });
+                    res.status(200);
+                })
+        }
+        else {
+            zaboSchema.find(function(err, zabos) {
+                if (err) return res.status(500).json({error: "Database error" });
+                res.status(200);
+            })
+        }
+
+    });
+
+    function uniqueNumber() {
+        var date = Date.now();
+        
+        if (date <= uniqueNumber.previous) {
+            date = ++uniqueNumber.previous;
+        } else {
+            uniqueNumber.previous = date;
+        }
+        return date;
+    }
+
+    uniqueNumber.previous = 0;
+
+    function ID() {
+        return uniqueNumber();
+    };
+
+
+    app.post('/api/zabos', function(req, res) {
+        
+        var zabo = new zaboSchema();
+        var reporters = []; // list of reporters
+
+        var uniq_id = ID();
+        
+        zabo.id = uniq_id;
+        zabo.img = req.body.img;
+        zabo.eventName = req.body.eventName;
+        zabo.writer = req.body.writer;
+        zabo.category = req.body.category;
+        zabo.applyStart = req.body.applyStart;
+        zabo.applyEnd = req.body.applyEnd;
+        zabo.eventStart = req.body.eventStart;
+        zabo.eventEnd = req.body.eventEnd;
+        zabo.description = req.body.description;
+        zabo.report = reporters;
+        zabo.toAra = req.body.toAra;
+        zabo.isMain = false;
+
+        zabo.save(function(err) {
+            if (err){
+                console.log(err);
+                return res.status(500);
+            }
+            res.json({});
+        })
+
+    });
+
+    app.delete('/api/zabos', function(req, res) {
+        zaboSchema.remove({}, function(err) {
+            if (err) return res.status(500).json({ error: "Database error" });
+            res.status(200);
+        })
+    });
+
 }

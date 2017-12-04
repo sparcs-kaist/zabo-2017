@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const zaboSchema = new mongoose.Schema({
-    id: String,
+    id: Number,
     img: String,
     eventName: String,
     writer: String,
